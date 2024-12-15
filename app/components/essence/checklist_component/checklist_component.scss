@@ -1,0 +1,41 @@
+$checklist-icon-size: 16px;
+
+.checklist {
+  &-title {
+    font-size: 14px;
+    margin-bottom: 18px;
+    margin-top: 0;
+  }
+
+  &-items {
+    display: grid;
+    padding: 0;
+    row-gap: 18px;
+  }
+
+  &-item {
+    align-items: center;
+    display: flex;
+    list-style: none;
+  }
+
+  &-icon {
+    background-color: white;
+    flex-shrink: 0;
+    height: $checklist-icon-size;
+    margin-right: 7px;
+    width: $checklist-icon-size;
+
+    &.icon-todo-circle {
+      fill: #c2bf9d;
+    }
+
+    &.icon-todo-check {
+      fill: #97c344;
+    }
+  }
+
+  &-link {
+    font-weight: bold;
+  }
+}
