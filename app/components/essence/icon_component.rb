@@ -15,6 +15,10 @@ module Essence
     private
 
     def before_render
+      set_base_html_options(
+        'icon',
+        @name.dasherize.prepend('icon-')
+      )
       set_file
     end
 
