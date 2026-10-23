@@ -1,13 +1,12 @@
 .clipboard-copy {
-  align-items: end;
-  display: flex;
-
-  > *:has(.clipboard-copy-input) {
-    flex: 1;
+  .clipboard-copy-input {
+    border-radius: var(--inputField-borderRadius);
   }
-}
 
-.clipboard-copy-link {
-  margin-left: 30px;
-  padding: 6px 0 !important;
+  .form-control-append {
+    background-color: transparent;
+    border: 0;
+    margin-left: 30px;
+    padding: 0;
+  }
 }
