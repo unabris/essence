@@ -2,6 +2,11 @@
 
 module Essence
   class FlashComponentPreview < ViewComponent::Preview
+    #
+    # @hidden
+    #
+    # @logical_path components
+    #
     def default
       render(FlashComponent.new)
     end
