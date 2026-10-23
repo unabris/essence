@@ -38,8 +38,8 @@ module Essence
                    **html_options)
       @name         = name
       @url          = url
-      @variant      = fetch_or_fallback(VARIANT_MAPPINGS[display_as.to_sym].keys, variant.to_sym, DEFAULT_VARIANT)
       @display_as   = fetch_or_fallback(DISPLAY_AS_OPTIONS, display_as.to_sym, DEFAULT_DISPLAY_AS)
+      @variant      = fetch_or_fallback(VARIANT_MAPPINGS[@display_as].keys, variant.to_sym, DEFAULT_VARIANT)
       @busy         = fetch_or_fallback_boolean(busy, fallback: DEFAULT_BUSY)
       @html_options = html_options
     end

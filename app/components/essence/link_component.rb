@@ -27,14 +27,14 @@ module Essence
     end
 
     def initialize(name:,
-                   url: nil,
+                   url:,
                    variant: DEFAULT_VARIANT,
                    display_as: DEFAULT_DISPLAY_AS,
                    **html_options)
       @name         = name
       @url          = url
-      @variant      = fetch_or_fallback(VARIANT_MAPPINGS[display_as.to_sym].keys, variant.to_sym, DEFAULT_VARIANT)
       @display_as   = fetch_or_fallback(DISPLAY_AS_OPTIONS, display_as.to_sym, DEFAULT_DISPLAY_AS)
+      @variant      = fetch_or_fallback(VARIANT_MAPPINGS[@display_as].keys, variant.to_sym, DEFAULT_VARIANT)
       @html_options = html_options
     end
 
