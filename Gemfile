@@ -32,4 +32,6 @@ group :test do
   gem 'selenium-webdriver'
 
   gem 'rspec-github', require: false
+
+  gem 'simplecov', require: false
 end

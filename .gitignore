@@ -8,3 +8,5 @@
 /site/log/*.log
 /site/storage/
 /site/tmp/
+/coverage/
+/spec/examples.txt

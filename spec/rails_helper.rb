@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+require 'simplecov'
+SimpleCov.start 'rails' do
+  enable_coverage :branch
+  cover 'app/**/*.rb', 'lib/**/*.rb'
+end
+
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../site/config/environment'
@@ -13,7 +19,6 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 require 'view_component/test_helpers'
-require 'view_component/system_test_helpers'
 require 'capybara/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -38,15 +43,10 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
-RSpec.configure do |config|
-  config.include ViewComponent::TestHelpers,       type: :component
-  config.include ViewComponent::SystemTestHelpers, type: :component
-  config.include Capybara::RSpecMatchers,          type: :component
 
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_paths = [
-    Rails.root.join('spec/fixtures')
-  ]
+RSpec.configure do |config|
+  config.include ViewComponent::TestHelpers, type: :component
+  config.include Capybara::RSpecMatchers,    type: :component
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
