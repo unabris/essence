@@ -1,34 +1,18 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples 'notification component' do |variant|
+RSpec.shared_examples 'notification component' do |variant, css_class:, icon:|
+  root_selector = "body > div.notification.#{css_class}"
+
   let(:content) { 'Notification text' }
+  let(:build_component) { ->(**options) { described_class.new(variant:, **options).with_content(content) } }
 
   it 'renders the component' do
-    render_inline(described_class.new(variant:)) do
-      content
-    end
+    render_inline(build_component.call)
 
-    aggregate_failures do
-      # TODO: Validate the correct icon
-      expect(page).to have_css "body > div.notification.notification-#{variant} > div.notification-indicator > svg.notification-icon",
-                               count: 1
-      expect(page).to have_css "body > div.notification.notification-#{variant} > div.notification-body",
-                               text: content, count: 1
-    end
+    expect(page).to have_css root_selector, count: 1
+    expect(page.find("#{root_selector} > div.notification-indicator > svg.notification-icon")).to match_icon(icon)
+    expect(page).to have_css "#{root_selector} > div.notification-body", exact_text: content, count: 1
   end
 
-  it 'renders with the given :html_options' do
-    render_inline(described_class.new(variant:, class: 'custom-class', data: { john: 'doe' })) do
-      content
-    end
-
-    aggregate_failures do
-      # TODO: Validate the correct icon
-      expect(page).to have_css "body > div.notification.notification-#{variant}.custom-class[data-john='doe']", count: 1
-      expect(page).to have_css "body > div.notification.notification-#{variant} > div.notification-indicator > svg.notification-icon",
-                               count: 1
-      expect(page).to have_css "body > div.notification.notification-#{variant} > div.notification-body",
-                               text: content, count: 1
-    end
-  end
+  it_behaves_like 'a component with html options', root_selector
 end

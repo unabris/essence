@@ -1,42 +1,18 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples 'link component' do |variant|
+RSpec.shared_examples 'link component' do |variant, display_as: :link|
+  url           = '/some/path'
+  root_selector = "body > a.#{display_as}.#{display_as}-#{variant}[href='#{url}']"
+
   let(:name) { 'Link text' }
-  let(:url) { '#' }
+  let(:build_component) { ->(**options) { described_class.new(name:, url:, variant:, display_as:, **options) } }
 
   it 'renders the component' do
-    render_inline(described_class.new(name:, url:, variant:))
+    render_inline(build_component.call)
 
-    expect(page).to have_css "body > a.link.link-#{variant} > span", text: name, count: 1
+    expect(page).to have_css "#{root_selector} > span", exact_text: name, count: 1
   end
 
-  it 'renders with the given :html_options' do
-    render_inline(described_class.new(name:, url:, variant:, class: 'custom-class', data: { john: 'doe' }))
-
-    expect(page).to have_css "body > a.link.link-#{variant}.custom-class[data-john='doe'] > span", text: name, count: 1
-  end
-
-  it 'renders with the given :left_icon' do
-    render_inline(described_class.new(name:, url:, variant:)) do |link|
-      link.with_left_icon 'arrow_up_right_from_square'
-    end
-
-    aggregate_failures do
-      # TODO: Validate the correct icon
-      expect(page).to have_css "body > a.link.link-#{variant} > svg.link-icon:first-child", count: 1
-      expect(page).to have_css "body > a.link.link-#{variant} > span:last-child", text: name, count: 1
-    end
-  end
-
-  it 'renders with the given :right_icon' do
-    render_inline(described_class.new(name:, url:, variant:)) do |link|
-      link.with_right_icon 'arrow_up_right_from_square'
-    end
-
-    aggregate_failures do
-      # TODO: Validate the correct icon
-      expect(page).to have_css "body > a.link.link-#{variant} > span:first-child", text: name, count: 1
-      expect(page).to have_css "body > a.link.link-#{variant} > svg.link-icon:last-child", count: 1
-    end
-  end
+  it_behaves_like 'a component with html options', root_selector
+  it_behaves_like 'a component with icon slots', root_selector, 'link-icon'
 end
