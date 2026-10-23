@@ -10,7 +10,9 @@ export default class extends Controller {
     confirmationText: String
   }
 
-  ClipboardCopy() {
+  ClipboardCopy(event) {
+    event.preventDefault();
+
     const linkTextSelector = this.linkTarget.querySelector("span"),
           previousLinkText = linkTextSelector.textContent,
           textToCopy       = this.inputTarget.value
