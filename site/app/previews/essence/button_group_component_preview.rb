@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module Essence
+  #
+  # @hidden
+  #
+  # @logical_path components
+  #
   class ButtonGroupComponentPreview < ViewComponent::Preview
-    #
-    # @hidden
-    #
-    # @logical_path components
-    #
     def default
       render(ButtonGroupComponent.new)
     end
