@@ -6,10 +6,10 @@ module Essence
 
     renders_many :group, types: {
       button: lambda { |**args|
-        ButtonComponent.new(size: 16, **args.merge(display_as: :button))
+        ButtonComponent.new(**args, display_as: :button)
       },
       link: lambda { |**args|
-        LinkComponent.new(size: 16, **args.merge(display_as: :button))
+        LinkComponent.new(**args, display_as: :button)
       }
     }
 
