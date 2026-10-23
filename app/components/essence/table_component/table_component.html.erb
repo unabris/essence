@@ -1,9 +1,11 @@
 <%= render Essence::ScrollShadowComponent.new do %>
   <table <%= tag.attributes **html_options %>>
     <thead>
-      <% columns.each do |column| %>
-        <th><%= column.label %></th>
-      <% end %>
+      <tr>
+        <% columns.each do |column| %>
+          <th><%= column.label %></th>
+        <% end %>
+      </tr>
     </thead>
     <tbody>
       <% rows.each do |row| %>
